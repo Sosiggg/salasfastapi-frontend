@@ -10,6 +10,9 @@ export default function TodoList() {
     useEffect(() => {
         fetch('https://salasfastapi-backend.onrender.com/tasks/list/', {
             method: 'GET',
+            headers: {
+                'accept': 'application/json',
+            },
         })
             .then((response) => response.json())
             .then((data) => setTasks(data))
@@ -25,6 +28,7 @@ export default function TodoList() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'accept': 'application/json',
             },
             body: JSON.stringify(newTask),
         })
@@ -40,15 +44,18 @@ export default function TodoList() {
         const updatedTask = { ...tasks[index], completed: !tasks[index].completed };
         const taskId = tasks[index].id;
 
+        // Send the updated task to the backend to update the completion status
         fetch(`https://salasfastapi-backend.onrender.com/tasks/update/${taskId}/`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
+                'accept': 'application/json',
             },
-            body: JSON.stringify({ completed: updatedTask.completed }),
+            body: JSON.stringify({ completed: updatedTask.completed }), // Send only the completed field
         })
             .then((response) => response.json())
             .then(() => {
+                // Update the state locally after the backend confirms the update
                 const updatedTasks = tasks.map((t, i) =>
                     i === index ? { ...t, completed: updatedTask.completed } : t
                 );
@@ -62,6 +69,9 @@ export default function TodoList() {
 
         fetch(`https://salasfastapi-backend.onrender.com/tasks/delete/${taskId}/`, {
             method: 'DELETE',
+            headers: {
+                'accept': 'application/json',
+            },
         })
             .then(() => {
                 setTasks(tasks.filter((_, i) => i !== index));
@@ -84,8 +94,9 @@ export default function TodoList() {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
+                'accept': 'application/json',
             },
-            body: JSON.stringify({ text: editedTask }),
+            body: JSON.stringify(updatedTask),
         })
             .then((response) => response.json())
             .then(() => {
@@ -99,7 +110,7 @@ export default function TodoList() {
             .catch((error) => console.error("Error saving edited task:", error));
     };
 
-    const filteredTasks = tasks.filter((task) => {
+    const filteredTasks = tasks.filter(task => {
         if (filter === "completed") return task.completed;
         if (filter === "pending") return !task.completed;
         return true;
@@ -129,7 +140,7 @@ export default function TodoList() {
             <div className="task-list-container">
                 <ul>
                     {filteredTasks.map((t, index) => (
-                        <li key={t.id}>
+                        <li key={index}>
                             <input 
                                 type="checkbox" 
                                 checked={t.completed} 

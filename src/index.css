@@ -1,0 +1,262 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Poppins';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  transition: background 0.3s ease, color 0.3s ease;
+  padding: 20px;
+  background: #F0F0F0;
+}
+
+.dark-mode {
+  background-color: #121212;
+  color: #EAEAEA;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.dark-mode .app-container {
+  background: #1E1E1E;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 1000;
+  margin-bottom: 20px;
+}
+
+.input-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s ease;
+}
+
+input:focus {
+  border-color: #e7473c;
+  outline: none;
+}
+
+.dark-mode input {
+  background: #2C2C2C;
+  color: #EAEAEA;
+  border: 2px solid #555;
+}
+
+button {
+  padding: 10px 14px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+button i {
+  font-size: 16px;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.add-btn {
+  background-color: #e7473c;
+  color: white;
+}
+
+.add-btn:hover {
+  background-color: #c0392b;
+}
+
+.clear-btn {
+  background-color: #333;
+  color: white;
+}
+
+.clear-btn:hover {
+  background-color: #444;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.filter-container button {
+  padding: 10px 12px;
+  border: 2px solid #e7473c;
+  background: none;
+  color: #e7473c;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.filter-container button.active {
+  background-color: #e7473c;
+  color: white;
+}
+
+.dark-mode .filter-container button {
+  border: 2px solid #e7473c;
+}
+
+.dark-mode .filter-container button.active {
+  background-color: #e7473c;
+  color: white;
+}
+
+.task-list-container {
+  max-height: 300px;  
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.task-list-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.task-list-container::-webkit-scrollbar-thumb {
+  background-color: #e7473c;
+  border-radius: 10px;
+}
+
+.task-list-container::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+.dark-mode .task-list-container::-webkit-scrollbar-track {
+  background: #2c2c2c;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 8px;
+  background: #F8F8F8;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode li {
+  background: #2C2C2C;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+li:hover {
+  transform: scale(1.02);
+}
+
+.task-text {
+  flex: 1;
+  font-size: 16px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn, .delete-btn, .save-btn {
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+  font-family: 'Poppins';
+}
+
+.edit-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #2980b9;
+}
+
+.delete-btn {
+  background-color: #e7473c;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+.save-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #27ae60;
+}
+
+.toggle-btn {
+  background-color: #333;
+  color: white;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: 1000;
+  font-family: 'Poppins';
+}
+
+.dark-mode .toggle-btn {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.toggle-btn:hover {
+  background-color: #444;
+}
+
+.dark-mode .toggle-btn:hover {
+  background-color: #ddd;
+}

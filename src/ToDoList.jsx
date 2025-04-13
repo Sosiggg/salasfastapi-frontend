@@ -40,17 +40,19 @@ export default function TodoList() {
         const updatedTask = { ...tasks[index], completed: !tasks[index].completed };
         const taskId = tasks[index].id;
 
+        // Send the updated task to the backend to update the completion status
         fetch(`https://salasfastapi-backend.onrender.com/api/tasks/${taskId}/`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(updatedTask),
+            body: JSON.stringify({ completed: updatedTask.completed }), // Send only the completed field
         })
             .then((response) => response.json())
             .then(() => {
+                // Update the state locally after the backend confirms the update
                 const updatedTasks = tasks.map((t, i) =>
-                    i === index ? { ...t, completed: !t.completed } : t
+                    i === index ? { ...t, completed: updatedTask.completed } : t
                 );
                 setTasks(updatedTasks);
             })

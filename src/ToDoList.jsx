@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+const BASE_URL = "https://salasfastapi-backend.onrender.com";
+
 export default function TodoList() {
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState("");
@@ -8,7 +10,7 @@ export default function TodoList() {
     const [editedTask, setEditedTask] = useState("");
 
     useEffect(() => {
-        fetch('https://salasfastapi-backend.onrender.com/tasks/list/', {
+        fetch(`${BASE_URL}/tasks/list/`, {
             method: 'GET',
             headers: {
                 'accept': 'application/json',
@@ -24,7 +26,7 @@ export default function TodoList() {
 
         const newTask = { text: task, completed: false };
 
-        fetch('https://salasfastapi-backend.onrender.com/tasks/create/', {
+        fetch(`${BASE_URL}/tasks/create/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,18 +46,16 @@ export default function TodoList() {
         const updatedTask = { ...tasks[index], completed: !tasks[index].completed };
         const taskId = tasks[index].id;
 
-        // Send the updated task to the backend to update the completion status
-        fetch(`https://salasfastapi-backend.onrender.com/tasks/update/${taskId}/`, {
+        fetch(`${BASE_URL}/tasks/update/${taskId}/`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'accept': 'application/json',
             },
-            body: JSON.stringify({ completed: updatedTask.completed }), // Send only the completed field
+            body: JSON.stringify({ completed: updatedTask.completed }),
         })
             .then((response) => response.json())
             .then(() => {
-                // Update the state locally after the backend confirms the update
                 const updatedTasks = tasks.map((t, i) =>
                     i === index ? { ...t, completed: updatedTask.completed } : t
                 );
@@ -67,7 +67,7 @@ export default function TodoList() {
     const removeTask = (index) => {
         const taskId = tasks[index].id;
 
-        fetch(`https://salasfastapi-backend.onrender.com/tasks/delete/${taskId}/`, {
+        fetch(`${BASE_URL}/tasks/delete/${taskId}/`, {
             method: 'DELETE',
             headers: {
                 'accept': 'application/json',
@@ -90,7 +90,7 @@ export default function TodoList() {
         const updatedTask = { ...tasks[index], text: editedTask };
         const taskId = tasks[index].id;
 
-        fetch(`https://salasfastapi-backend.onrender.com/tasks/update/${taskId}/`, {
+        fetch(`${BASE_URL}/tasks/update/${taskId}/`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
